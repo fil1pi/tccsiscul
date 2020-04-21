@@ -6,7 +6,7 @@ require_once('cabecalho.php');
 <div class = "card-body">
 
   <h1 class="font-italic">Siscul</h1>
-<h3 class="font-italic">A nossa platafora de gerenciamento!</h3>
+<h3 class="font-italic">A nossa plataforma de gerenciamento!</h3>
 
                 <form action = "Logar.php" method = "post">
                     

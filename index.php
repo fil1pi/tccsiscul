@@ -30,7 +30,7 @@ require_once('cabecalho.php');
 <!-- Image and text -->
 <nav class="navbar navbar-dark bg-dark">
   <a class="navbar-brand" href="#">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSOpI3OODraQR3d4aio8XlnZKBqsRKKex_-0OR437Bsg7RLwZXW&usqp=CAU" width="30" height="30" class="d-inline-block align-top" alt="">
+    <img src="ricardo.png" width="30" height="30" class="d-inline-block align-top" alt="">
     Siscul
   </a>
 </nav>
