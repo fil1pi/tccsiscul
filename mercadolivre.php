@@ -108,10 +108,10 @@ while ($umvalor != null) {
         <div class="col-md-8">
              <div class="card">
        <br>
-      
+    
               
                      
-
+<br>
               <?php print "<img class='figure-img img-fluid rounded border border-dark' src='uploadsvenda/$imagem' style='height: 400px; width: 800px'>" ?>
                                  
               <h2 class="text-justify"><?php echo  " $texto"; ?></h2>
