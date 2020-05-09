@@ -77,6 +77,7 @@ require_once('cabecalho.php');
       <a href="siteusu.php"><div class="link">Dashboard</div></a>
       <a href="produtos.php"><div class="link">Produtos</div></a>
       <a href="gestao.php"><div class="link">Gestão</div></a>
+      <a href="mercadolivreagro.php"><div class="link">mercado</div></a>
     </nav>
   </div>
 

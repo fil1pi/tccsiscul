@@ -1,5 +1,6 @@
 <?php
 require_once ("conexao-banco.php");
+require_once ("protege.php");
 require_once('cabecalho.php');
 $sql = " SELECT * FROM  publicacao ";
 $resultado = mysqli_query($conexao, $sql);
@@ -30,6 +31,8 @@ while ($umvalor != null) {
       <a href="siteusu.php"><div class="link">Dashboard</div></a>
       <a href="produtos.php"><div class="link">Produtos</div></a>
       <a href="gestao.php"><div class="link">Gestão</div></a>
+      <a href="mercadolivreagro.php"><div class="link">mercado</div></a>
+     
     </nav>
   </div>
 
@@ -122,7 +125,34 @@ while ($umvalor != null) {
 
                         <?php endforeach?>
                         <div class="col-md-4 ">
-                        <iframe width="400" height="300" src="https://www.youtube.com/embed/WNJj8qF4UDM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="card">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+                        </div>
                         </div>
                         <div class="col-md-4">
                           

@@ -1,7 +1,8 @@
 <?php
 require_once "cabecalho.php";
 require_once "conexao-banco.php";
-$sql = " SELECT * FROM  produtos ";
+$vend=$_SESSION["nome"];
+$sql = " SELECT * FROM  produtos where produtor like '$vend'";
 $resultado = mysqli_query($conexao, $sql);
 $umvalor = mysqli_fetch_assoc($resultado);
 $todososvalores = array();
@@ -30,6 +31,7 @@ require_once 'protege.php';
       <a href="siteusu.php"><div class="link">Dashboard</div></a>
       <a href="produtos.php"><div class="link">Produtos</div></a>
       <a href="gestao.php"><div class="link">Gestão</div></a>
+      <a href="mercadolivreagro.php"><div class="link">mercado</div></a>
     </nav>
   </div>
 
@@ -103,6 +105,11 @@ require_once 'protege.php';
             </div>
             <div class="card-body">
               <form action="NovoProduto.php" method="post">
+              <div class="form-group">
+                  <label for="nome">produtor</label>
+                  <input type="text" class="form-control" id="nome"name="pro"
+                  value="<?=$_SESSION["nome"];?>">
+                </div>
                 <div class="form-group">
                   <label for="nome">Nome</label>
                   <input type="text" class="form-control" id="nome"name="nome">
@@ -157,9 +164,9 @@ foreach ($todososvalores as $registro):
                       <button type="submit" class="btn btn-large btn-block btn-danger">Remover</button>
                     </form>
                   
-                    <form action="produtos.php" method="post">
-                      <input type="hidden" name="idp" value="<?=$registro["idproduto"];?>">
-                      <button type="submit" class="btn btn-large btn-block btn-success">Vender</button>
+                    <form action="anuncio.php" method="post">
+                      <input type="hidden" name="idp" value="<?=$registro["idproduto"]; ?>">
+                      <button type="submit" class="btn btn-large btn-block btn-success">Anunciar</button>
                     </form>
                   </th>
                 </tr>
@@ -171,94 +178,15 @@ foreach ($todososvalores as $registro):
         <div class="col-md-6">
           <br>
           <br>
-          <?php
-if (isset($_POST['idp'])) {
-	$id = $_POST['idp'];
-} else {
-	$id = 0;
-}
-$sql = "select * from produtos where idproduto=? ";
-$sqlprep = $conexao->prepare($sql);
-$sqlprep->bind_param("i", $id);
-$sqlprep->execute();
-$resultadosql = $sqlprep->get_result();
-$vetor1 = mysqli_fetch_assoc($resultadosql);
-?>
-          <div class="card">
-            <div class="card-header">
-              VenderProduto
-            </div>
-            <div class="card-body">
-              <form action="inserirVendas.php" method="post">
-                <div class="form-group">
-                  <label for="nome">Nome</label>
-                  <input type="text" class="form-control" id="nome"name="nome"
-                  value="<?=$vetor1["nome"];?>">
-                </div>
-                <div class="form-group">
-                  <label for="nota1">tipo</label>
-                  <input type="text" class="form-control" id="nota1" name="tipo"
-                  value="<?=$vetor1["tipo"];?>">
-                </div>
-                <div class="form-group">
-                  <label for="nota2">Preco De Venda</label>
-                  <input type="text" class="form-control" id="nota2" name="qtde">
-                </div>
-                <div class="form-group">
-                  <label for="nota3">Quantidade</label>
-                  <input type="number" class="form-control" id="nota3" name="preco">
-                </div>
-                <button type="submit" class="ntn btn-primary">Salvar</button>
-              </form>
-            </div>
-          </div>
+          
+
+         
         </div>
         <div class="col-md-6">
-          <?php
-$sql = " SELECT * FROM  vendas ";
-$resultado = mysqli_query($conexao, $sql);
-$umvalor = mysqli_fetch_assoc($resultado);
-$todososvalores = array();
-while ($umvalor != null) {
-	array_push($todososvalores, $umvalor);
-	$umvalor = mysqli_fetch_assoc($resultado);
-}
-?>
+ 
 <br>
 <br>
-          <table class="table table-bordered table-dark ">
-            <table class="table table-bordered table-dark">
-              <thead class="">
-                <tr>
-                  <th>Nome</th>
-                  <th>Tipo</th>
-                  <th>Preço venda</th>
-                  <th>Quantidade</th>
-                  <th>Total </th>
-                  <th>Opção </th>
-                  <?php
-foreach ($todososvalores as $registro):
-?>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th><?=$registro["nome"];?></th>
-                  <th><?=$registro["tipo"];?></th>
-                  <th><?=$registro["preco"];?></th>
-                  <th><?=$registro["qtde"];?></th>
-                  <th><?=$registro["total"];?></th>
-                  <th>
-                    <form action="Removervenda.php" method="post">
-                      <input type="hidden" name="idv" value="<?=$registro["id"];?>">
-                      <button type="submit" class="btn btn-large btn-block btn-danger">Remover</button>
-                    </form>
-                  </th>
-                </tr>
-              </tbody>
-              <?php endforeach?>
-            </table>
-          </table>
+          
 
           </div>
         </div>

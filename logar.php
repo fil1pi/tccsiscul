@@ -25,7 +25,11 @@ if (isset($vetorUMRegistro)) {
 $_SESSION["id"] = $vetorUMRegistro["id"];
 $_SESSION["email"] = $vetorUMRegistro["email"];
 $_SESSION["nome"] = $vetorUMRegistro["nome"];
-header("location: siteusu.php");
+   if ($vetorUMRegistro["adm"]===1) {
+    header("location: siteadm.php");
+   }else {
+    header("location: siteusu.php");
+   }
 } else {
 $_SESSION["erroLogin"] = "Erro de login ou senha.";
 header("location: login.php");

@@ -1,7 +1,7 @@
 <?php
 require_once ("conexao-banco.php");
 require_once('cabecalho.php');
-
+require_once ("protege.php");
 $sql = " SELECT * FROM  publicacao ";
 $resultado = mysqli_query($conexao, $sql);
 $umvalor = mysqli_fetch_assoc($resultado);
@@ -32,6 +32,7 @@ while ($umvalor != null) {
       <a href="siteadm.php"><div class="link">Dashboard</div></a>
       <a href="Listusuarios.php"><div class="link">Usuarios</div></a>
       <a href="formpubli.php"><div class="link">Publicar</div></a>
+      <a href="mercadolivre.php"><div class="link">mercado</div></a>
       
     </nav>
   </div>

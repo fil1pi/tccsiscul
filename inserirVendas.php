@@ -2,25 +2,35 @@
 require_once ("cabecalho.php");
 require_once ("conexao-banco.php");
 
-$nome=$_POST['nome'];
+$nome1=$_POST['nome'];
+$nomeV=$_POST['vendedor'];
 $tipo=$_POST['tipo'];
-$qtde=$_POST['qtde'];
 $preco=$_POST['preco'];
-
-    $sql     = "insert into vendas( nome,tipo,preco,qtde,total) values(?,?,?,?,?)";
-    $sqlprep = $conexao->prepare($sql);
-    $total =$qtde*$preco;
-    $sqlprep->bind_param("ssdii" ,$nome,$tipo,$preco,$qtde,$total);
-    if ($sqlprep->execute()) {
-header("Location: produtos.php");
-   
-    } else {
-        ?>
-    
-        <div class = "p-3 mb-2 bg-success text-white">Algo de errado amigão</div>
-    
-        <?php
-    
+$qtde=$_POST['qtde'];
+$arquivo = isset($_FILES['img']) ? $_FILES['img'] : "";
+if (isset($_FILES['img'])) {
+    $nome = $arquivo['name'];
+    $tamanho = $arquivo['size'];
+    $tiposPermitidos = ['jpg', 'jpeg', 'png', 'jfif'];
+    $extensao = explode('.', $nome);
+    $extensao = end($extensao);
+    $novoNome = rand() . "." . $extensao;
+    if (in_array($extensao, $tiposPermitidos)) {
+        if ($tamanho > 8388608) {
+            echo "O tamanho do arquivo excede o limite permitido";
+        } else {
+            $mover = move_uploaded_file($_FILES['img']['tmp_name'], "uploadsvenda/" . $novoNome);
+            $sql     = "INSERT INTO  vendas( preco,qtde ,produto,anuncio,vendedor ,imganuncio) VALUES ('$preco','$qtde','$nome1','$tipo','$nomeV','$novoNome')";
+            $sqlprep=mysqli_query($conexao,$sql);
+                if ($sqlprep = true) {
+                    header("location:produtos.php");
+                }
+           
+            }
+        }else {
+            echo "Tipo de arquivo não permitido";
+        }
     }
 
-       ?>
+
+  ?>

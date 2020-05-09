@@ -1,9 +1,7 @@
 <?php
 require_once ("conexao-banco.php");
 require_once('cabecalho.php');
-
-
-$sql = " SELECT * FROM  usuarios ";
+$sql = " SELECT * FROM  vendas ";
 $resultado = mysqli_query($conexao, $sql);
 $umvalor = mysqli_fetch_assoc($resultado);
 $todososvalores = array();
@@ -13,10 +11,7 @@ while ($umvalor != null) {
 
    
 }
-
-
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -32,11 +27,10 @@ while ($umvalor != null) {
   <label for="check" id="icone"><img src="icone.png"></label>
   <div class="barra">
     <nav>
-      <a href="siteadm.php"><div class="link">Dashboard</div></a>
-      <a href="Listusuarios.php"><div class="link">usuarios</div></a>
-      <a href="formpubli.php"><div class="link">Publicar</div></a>
-      <a href="mercadolivre.php"><div class="link">mercado</div></a>
-    
+      <a href="siteusu.php"><div class="link">Dashboard</div></a>
+      <a href="produtos.php"><div class="link">Produtos</div></a>
+      <a href="gestao.php"><div class="link">Gestão</div></a>
+      <a href="mercadolivreagro.php"><div class="link">mercado</div></a>
     </nav>
   </div>
 
@@ -47,7 +41,7 @@ while ($umvalor != null) {
     <nav>
       <a href=""><div class="link">Dashboard</div></a>
       <a href=""><div class="link">Produtos</div></a>
-      <a href=""><div class="link">publicar</div></a>
+      <a href=""><div class="link">Gestão</div></a>
     </nav>
   </div>
               <div class="nav">
@@ -66,7 +60,7 @@ while ($umvalor != null) {
                 <?php
     
     if (isset($_SESSION["nome"])) : ?>
-        <div class="dropdown">
+    <div class="dropdown">
   <button class="btn btn-light  dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   <img src="https://cdn.pixabay.com/photo/2017/02/25/22/04/user-icon-2098873_960_720.png" alt="" style="width: 25px; height: 25px;">
   <?= $_SESSION["nome"]; ?>
@@ -76,6 +70,8 @@ while ($umvalor != null) {
    
   </div>
 </div>
+        
+
     <?php else : ?>
         <a href="login.php" style="color: inherit; text-decoration: none">
             <button type="button" class="btn btn-light mr-sm-2">
@@ -95,100 +91,45 @@ while ($umvalor != null) {
               
             </div>
           </nav>
-          <div class="container">
-        
-              <div class="row">
-                 
-
-                  <div class="col-md-7">
-                      <br>
-                      <br>
-
-                
-          <table class="table table-bordered table-dark ">
-            <table class="table table-bordered table-dark">
-              <thead class="">
-                <tr>
-                  <th>Nome</th>
-                  <th>email</th>
-                  <th>condição</th>
-                  <th>opção</th>
-                  
-                  <?php
-foreach ($todososvalores as $registro):
-    if ( $registro["adm"] ==1 ) {
-        $condicao = "Adm";
-        # code...
-    }else{
-        $condicao = "usuario"; 
-    }
-?>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th><?=$registro["nome"];?></th>
-                  <th><?=$registro["email"];?></th>
-                  <th><?php echo  " $condicao"; ?></th>
-                
-                  <th>
-                    <form action="Remover.php" method="post">
-                      <input type="hidden" name="idv" value="<?=$registro["id"];?>">
-                      <button type="submit" class="btn btn-large btn-block btn-danger">Remover</button>
-                    </form>
-                  </th>
-                </tr>
-              </tbody>
-              <?php endforeach?>
-            </table>
-          </table>
-          </div>
-          
-          <div class="col-md-7">
+          <?php 
+          foreach ($todososvalores as $umRegistro) :
+           
+            $texto=$umRegistro['anuncio'];
+                        $imagem = $umRegistro['imganuncio']; 
+                        $vendedor = $umRegistro['vendedor'];?>
+                        <div class="container">
           <br>
-          
-              <div class="card">
-                  <div class="card-header">
-                      Novo Usuario
-                  </div>
-                      <div class="card-body">
-                      <form action="Novousuario.php" method="post">
-                <div class="form-group">
-                  <label for="nome">Nome</label>
-                  <input type="text" class="form-control" id="nome"name="nome">
-                </div>
-                <div class="form-group">
-                  <label for="email">email</label>
-                  <input type="text" class="form-control" id="email" name="email">
-                </div>
-                <div class="form-group">
-                  <label for="nota2">senha</label>
-                  <input type="password" class="form-control" id="senha" name="senha">
-                </div>
-                <div class="form-group">
-                  <label for="nota2">Tipo</label>
-                  <input type="text" class="form-control" id="senha" name="adm">
-                </div>
-                
-                <button type="submit" class="ntn btn-primary">Salvar</button>
-              </form>
-                      </div>
+          <br>
+          <br>
+        <div class="row">
+        <div class="col-md-8">
+             <div class="card">
+       
+              
+                                    
+              <?php print "<img class='figure-img img-fluid rounded border border-dark' src='uploadsvenda/$imagem' style='height: 400px; width: 800px'>" ?>
+                                 
+              <h2 class="text-justify"><?php echo  " $texto"; ?></h2>
+              <h4 class="text-justify"><?php echo  " $vendedor"; ?></h4>                     
+                                                    </div>
+        </div>
+       
+        
 
-                  
-              </div>
-          </div>
-          
-  
-        
-        
-        
-          </div>
-              </div>
-          </div>
+                        <?php endforeach?>
+                        <div class="col-md-4 ">
+                        
+                        </div>
+                        <div class="col-md-4">
+                          
+                        </div>
+
+                        </div>
+                        </div>
+ 
 
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="js/script.js"></script>
 </html>

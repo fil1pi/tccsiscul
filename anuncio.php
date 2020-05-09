@@ -1,15 +1,22 @@
 <?php
-require_once ("conexao-banco.php");
-require_once('cabecalho.php');
-if(isset($_POST['id'])){
-  $id = $_POST['id'];
+require_once "cabecalho.php";
+require_once "conexao-banco.php";
 
-}else{
-  $id=0;
+if (isset($_POST['idp'])) {
+	$id = $_POST['idp'];
+} else {
+	$id = 0;
 }
-
+$sql = "select * from produtos where idproduto=? ";
+$sqlprep = $conexao->prepare($sql);
+$sqlprep->bind_param("i", $id);
+$sqlprep->execute();
+$resultadosql = $sqlprep->get_result();
+$vetor1 = mysqli_fetch_assoc($resultadosql);
 ?>
 
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -19,11 +26,8 @@ if(isset($_POST['id'])){
  
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="css/stile.css">
-  <link rel="stylesheet" href="css/stile2.css">
-  
   <body>
-  
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <input type="checkbox" id="check">
   <label for="check" id="icone"><img src="icone.png"></label>
   <div class="barra">
@@ -31,7 +35,7 @@ if(isset($_POST['id'])){
       <a href="siteadm.php"><div class="link">Dashboard</div></a>
       <a href="Listusuarios.php"><div class="link">Usuarios</div></a>
       <a href="formpubli.php"><div class="link">Publicar</div></a>
-      <a href="mercadolivre.php"><div class="link">mercado</div></a>
+      <a href="mercadolivreagro.php"><div class="link">mercado</div></a>
       
     </nav>
   </div>
@@ -44,7 +48,6 @@ if(isset($_POST['id'])){
       <a href=""><div class="link">Dashboard</div></a>
       <a href=""><div class="link">Usuarios</div></a>
       <a href=""><div class="link">Publicar</div></a>
-      
       
     </nav>
   </div>
@@ -95,33 +98,41 @@ if(isset($_POST['id'])){
             </div>
           </nav>
           <div class="container">
-          <div class="row">
-              <div class="col-md-6">
-                  <br>
-                  <br>
-                  <br>
-                  <div class="card">
-                      <br>
-                      <br>
-                      <div class="container">
-              <form action="publi.php" method="post" enctype="multipart/form-data">
-              <div class="form-group">
-        <label for="id">Id</label>
-        <input type="text" class="form-control" id="id"
-               name="id" placeholder="(automatico)"
-               readonly="true"
-               >
-    </div>
+          <br>
+          <br>
+          <br>
+        <div class="row">
+        <div class="col-md-8">
+ <div class="card">
+            <div class="card-header">
+             Anunciar Produto
+            </div>
+            <div class="card-body">
+              <form action="inserirVendas.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                  <label for="">Titulo</label>
-                  <input type="text" class="form-control" id="titu"name="titu" value=>
+                  <label for="nome">Produto </label>
+                  <input type="text" class="form-control" id="nome"name="nome"
+                  value="<?=$vetor1["nome"];?>">
                 </div>
                 <div class="form-group">
-                  <label for="">Publicação</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1"  name="publi" >
- 
-                  
-                  </textarea>
+                  <label for="nota1">Vendedor </label>
+                  <input type="text" class="form-control" id="nota1" name="vendedor"
+                  value="<?=$_SESSION["nome"];?>"
+                 >
+                </div>
+                <div class="form-group">
+                  <label for="nota1">texto do anuncio </label>
+                  <input type="text" class="form-control" id="nota1" name="tipo"
+                 >
+                </div>
+                <div class="form-group">
+                  <label for="nota2">Preco De Venda</label>
+                  <input type="text" class="form-control" id="nota2" name="preco">
+                </div>
+                <div class="form-group">
+                  <label for="nota3">Quantidade em estoque </label>
+                  <input type="text" class="form-control" id="nota3" name="qtde"
+                  value="<?=$vetor1["qtde"];?>" >
                 </div>
                 <div class="form-group">
                   <label for="nota2">Imagem </label>
@@ -129,42 +140,10 @@ if(isset($_POST['id'])){
                   <input type="file" class="form-control-required" id="upload" name="img" >
 
                 </div>
-                <div class="form-group">
-                  <label for="nota2">Ler mais </label>
-                  <input type="text" class="form-control" id="link" name="lermais" >
-
-                </div>
-                
-                
-                <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Salvar</button>
+                <button type="submit" class="ntn btn-primary">Salvar</button>
               </form>
-              <br>
-              <br>
-              </div>
-              <br>
-              <br>
-              </div>
-              </div>
+            </div>
           </div>
-          
+        </div>
+        </div>
           </div>
-
-</body>
-<script>
-    $(function(){
-        //#upload id do input
-        $('#upload').change(function(){
-            const file = $(this)[0].files[0]
-            const fileReader = new FileReader()
-            fileReader.onloadend = function(){
-                //#img id da tag <img>
-                $('#img2').attr('src', fileReader.result)
-            }
-            fileReader.readAsDataURL(file)
-        })
-    })
-</script>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</html>
