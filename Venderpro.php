@@ -40,8 +40,11 @@ foreach ($todososvalores as $registro):
   <div class="barra">
     <nav>
       <a href="siteusu.php"><div class="link">Dashboard</div></a>
+      <hr class = "featurette-divider">
       <a href="produtos.php"><div class="link">Produtos</div></a>
+      <hr class = "featurette-divider">
       <a href="gestao.php"><div class="link">Gestão</div></a>
+      <hr class = "featurette-divider">
       
     </nav>
   </div>
@@ -52,8 +55,14 @@ foreach ($todososvalores as $registro):
   <div class="barra">
     <nav>
       <a href=""><div class="link">Dashboard</div></a>
+      <hr class = "featurette-divider">
       <a href=""><div class="link">Produtos</div></a>
+      <hr class = "featurette-divider">
       <a href=""><div class="link">Gestão</div></a>
+      <hr class = "featurette-divider">
+      <div class="container">
+      <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
+     </div>
     </nav>
   </div>
               <div class="nav">

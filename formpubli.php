@@ -29,8 +29,11 @@ if(isset($_POST['id'])){
   <div class="barra">
     <nav>
       <a href="siteadm.php"><div class="link">Dashboard</div></a>
+      <hr class = "featurette-divider">
       <a href="Listusuarios.php"><div class="link">Usuarios</div></a>
+      <hr class = "featurette-divider">
       <a href="formpubli.php"><div class="link">Publicar</div></a>
+      <hr class = "featurette-divider">
       
       
     </nav>
@@ -42,8 +45,14 @@ if(isset($_POST['id'])){
   <div class="barra">
     <nav>
       <a href=""><div class="link">Dashboard</div></a>
+      <hr class = "featurette-divider">
       <a href=""><div class="link">Usuarios</div></a>
+      <hr class = "featurette-divider">
       <a href=""><div class="link">Publicar</div></a>
+      <hr class = "featurette-divider">
+      <div class="container">
+      <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
+     </div>
       
       
     </nav>
