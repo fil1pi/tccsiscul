@@ -18,6 +18,7 @@ $sqlprep->bind_param("sdiddidds" ,$nome,$preco,$qtde,$tg,$pv,$qtdev,$total,$tota
 if ($sqlprep->execute()) {
     header("location: gestao.php");
 } else {
+    
     ?>
 
     <div class = "p-3 mb-2 bg-success text-white">Algo de errado amigão</div>

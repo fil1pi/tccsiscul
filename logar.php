@@ -21,6 +21,7 @@ require_once ("conexao-banco.php");
 
 
 if (isset($vetorUMRegistro)) {
+   
     session_start();
 $_SESSION["id"] = $vetorUMRegistro["id"];
 $_SESSION["email"] = $vetorUMRegistro["email"];

@@ -38,6 +38,7 @@ while ($umvalor != null) {
       <hr class = "featurette-divider">
       <a href="formpubli.php"><div class="link">Publicar</div></a>
       <hr class = "featurette-divider">
+      
       <div class="container">
       <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
      </div>

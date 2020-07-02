@@ -36,6 +36,7 @@ if(isset($_POST['id'])){
       <hr class = "featurette-divider">
       
       
+      
     </nav>
   </div>
 

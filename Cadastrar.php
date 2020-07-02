@@ -11,6 +11,7 @@ $adm   = $_POST["adm"];
 
 
 
+
 $sql     = "insert into usuarios( email,senha,nome,adm) values(?,?,?,?)";
 $sqlprep = $conexao->prepare($sql);
 $sqlprep->bind_param("sssi" ,$email,$senha,$nome,$adm);

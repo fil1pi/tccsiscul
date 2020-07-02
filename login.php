@@ -12,6 +12,7 @@ require_once('cabecalho.php');
                     
                 <div class = "form-group">
  <br>
+ 
                         <p class="font-italic"> Login</p>
                         <label for  = "email"></label>
                         <input type = "text" class = " rounded-pill form-control" id = "email"name = "email" placeholder = "Email">

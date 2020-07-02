@@ -38,6 +38,7 @@ while ($umvalor != null) {
       <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
      </div>
      
+     
     </nav>
   </div>
 

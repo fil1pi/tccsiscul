@@ -63,6 +63,7 @@ foreach ($todososvalores as $registro):
       <div class="container">
       <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
      </div>
+     
     </nav>
   </div>
               <div class="nav">

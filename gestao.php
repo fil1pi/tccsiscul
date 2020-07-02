@@ -45,6 +45,7 @@ $proximo = $pag +1;
 $sql =" SELECT * from Produtos_omega where produtor = '$usu' ORDER BY Total_Final asc";
 $buscar =mysqli_query($conexao,$sql);
 while($dados = mysqli_fetch_array($buscar)){
+  
   $n= $dados['nome'];
   $tg = $dados['Total_gasto'];
   $tv = $dados['total_venda'];

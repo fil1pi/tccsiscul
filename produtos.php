@@ -42,6 +42,7 @@ while ($umvalor != null) {
      </div>
     </nav>
   </div>
+  
 
             <nav class="navbar fixed-top navbar-expand-lg navbar-light "style="background-color: #282828;" >
             <input type="checkbox" id="check">

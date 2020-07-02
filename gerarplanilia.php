@@ -11,6 +11,7 @@ $usu=$_SESSION["nome"];
     <title>gerar execel</title>
 </head>
 <body>
+	
     <?php
     $arquivo = 'produtos.xls';
     $html = '';
