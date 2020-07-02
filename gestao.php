@@ -1,6 +1,26 @@
 <?php
 require_once ("conexao-banco.php");
 require_once('cabecalho.php');
+require_once('protege.php');
+$usu= $_SESSION['nome'];
+
+$pag = (isset($_GET['pagina']))?$_GET['pagina'] : 1;
+    
+$busca = "SELECT *FROM Produtos_omega where produtor = '$usu'";
+$todos = mysqli_query($conexao, "$busca");
+
+$registros = "10";
+
+$tr = mysqli_num_rows($todos);
+$tp = ceil($tr/$registros);
+
+$inicio = ($registros*$pag)-$registros;
+$limite = mysqli_query($conexao, "$busca LIMIT $inicio, $registros");
+
+$anterior = $pag -1;
+$proximo = $pag +1;
+
+
 
 ?>
 <!DOCTYPE html>
@@ -20,19 +40,28 @@ require_once('cabecalho.php');
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses', 'Profit'],
-          ['2014', 1000, 400, 200],
-          ['2015', 1170, 460, 250],
-          ['2016', 660, 1120, 300],
-          ['2017', 1030, 540, 350]
+          ['nome', 'Lucro', 'Total gasto', 'Total venda'],
+          <?php
+$sql =" SELECT * from Produtos_omega where produtor = '$usu' ORDER BY Total_Final asc";
+$buscar =mysqli_query($conexao,$sql);
+while($dados = mysqli_fetch_array($buscar)){
+  $n= $dados['nome'];
+  $tg = $dados['Total_gasto'];
+  $tv = $dados['total_venda'];
+  $tf = $dados['Total_Final'];
+
+          ?>
+          ['<?php echo $n ?>', '<?php echo $tf ?>', '<?php echo $tg ?>', '<?php echo $tv ?>'],
+          
+<?php } ?>
         ]);
 
         var options = {
           chart: {
             title: 'Siscul Company ',
-            subtitle: 'Produtos mais vendidos/produzidos no periode de testes',
+            subtitle: '',
           },
-          bars: 'horizontal' // Required for Material Bar Charts.
+          bars: 'vertical' // Required for Material Bar Charts.
         };
 
         var chart = new google.charts.Bar(document.getElementById('barchart_material'));
@@ -41,32 +70,7 @@ require_once('cabecalho.php');
       }
     
     </script>
-    <!-- gafico de linha -->
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawVisualization);
-
-      function drawVisualization() {
-        // Some raw data (not necessarily accurate)
-        var data = google.visualization.arrayToDataTable([
-          ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-          ['2004/05',  165,      938,         522,             998,           450,      614.6],
-          ['2005/06',  135,      1120,        599,             1268,          288,      682],
-          ['2006/07',  157,      1167,        587,             807,           397,      623],
-          ['2007/08',  139,      1110,        615,             968,           215,      609.4],
-          ['2008/09',  136,      691,         629,             1026,          366,      569.6]
-        ]);
-
-        var options = {
-          title : 'Siscul Company',
-          
-          seriesType: 'bars',
-          series: {5: {type: 'line'}}        };
-
-        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
+ 
 </head>
   <body>
 
@@ -77,11 +81,11 @@ require_once('cabecalho.php');
       <a href="siteusu.php"><div class="link">Dashboard</div></a>
       <a href="produtos.php"><div class="link">Produtos</div></a>
       <a href="gestao.php"><div class="link">Gestão</div></a>
-      <a href="mercadolivreagro.php"><div class="link">mercado</div></a>
+    
     </nav>
   </div>
 
-            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-light"style="background-color: #282828;">
             <input type="checkbox" id="check">
   <label for="check" id="icone"><img src="icone.png"></label>
   <div class="barra">
@@ -143,26 +147,102 @@ require_once('cabecalho.php');
          
            <br>
           <br>
-          <div class="card">
+          
           <div id="barchart_material" style="width: 900px; height: 500px;"></div>
-        
+          
           </div>
           </div>
-          </div>
+          <br>
+          <br>
+          <a href="gerarplanilia.php"><button class="btn btn-success">Gerar Planilha</button></a>
+          <br>
+          <br>
           <div class="row">
-          <div class="col-md-6">
-              <br>
-<br>
-<br>
-<div class="card">
-<div id="chart_div" style="width: 900px; height: 500px; ;"></div>
-          </div>
+            <br>
+            <br>
+          <table class="table table-striped table-dark">
+            <thead>
+                <tr >
+                    <th >ID</th>
+                    <th >NOME</th>
+                    <th>PREÇO PRODUÇÃO</th>
+                    <th >QUANTIDADE</th>
+                    <th >TOTAL GASTO</th>
+                    <th >PREÇO DE VENDA</th>
+                    <th >QUANTIDADE VENDIDA</th>
+                    <th >TOTAL DA VENDA</th>
+                    <th >LUCRO FINAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                while($dados = mysqli_fetch_array($limite)){
+                    $id = $dados['idproduto'];
+                    $nome = $dados['nome'];
+                    $PPP = $dados['Preco_producao'];
+                    $QTT = $dados['quantidade'];
+                    $TGG = $dados['Total_gasto'];
+                    $PVV = $dados['Preco_venda'];
+                    $QVV = $dados['quantida_Venda'];
+                    $TVF = $dados['total_venda'];
+                    $LF = $dados['Total_Final'];
+                    
+                ?>
+                <tr>
+                    <th scope="row"><?=$id?></th>
+                    <td><?=$nome?></td>
+                    <td><?=$PPP?></td>
+                    <td><?=$QTT?></td>
+                    <td><?=$TGG?></td>
+                    <td><?=$PVV?></td>
+                    <td><?=$QVV?></td>
+                    <td><?=$TVF?></td>
+                    <td><?=$LF?></td>
+                </tr> 
+                <?php }?>
+            </tbody>
+        </table>
+        
+            <ul class="pagination">
+                <?php
+                if($pag >1){
+                ?>
+                <li class="page-item">
+                <a class="page-link" href="?pagina=<?=$anterior;?>" aria-label="Anterior">
+                        <span aria-hidden="true">Anterior</span>
+                    </a>
+                </li>
+                <?php }?>
+                
+                <?php
+                for($i=1; $i<=$tp; $i++){
+                    if($pag == $i ){
+                        echo "<li class='page-item active'><a class='page-link' href='?pagina=$i'>$i</a></li>";
+                    }else{
+                        echo "<li class='page-item'><a class='page-link' href='?pagina=$i'>$i</a></li>";
+                    }
+                }
+                ?>
+                
+                
+                
+                <?php 
+                if($pag < $tp){
+                ?>
+                <li class="page-item">
+                    <a class="page-link" href="?pagina=<?=$proximo;?>" aria-label="Próximo">
+                        <span aria-hidden="true">Próximo</span>
+                        
+                    </a>
+                </li>
+                <?php }?>
+            </ul>
+        
+    
 
           </div>
-
           </div>
-          </div>
-
+          
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

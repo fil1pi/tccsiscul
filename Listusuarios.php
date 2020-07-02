@@ -35,12 +35,12 @@ while ($umvalor != null) {
       <a href="siteadm.php"><div class="link">Dashboard</div></a>
       <a href="Listusuarios.php"><div class="link">usuarios</div></a>
       <a href="formpubli.php"><div class="link">Publicar</div></a>
-      <a href="mercadolivre.php"><div class="link">mercado</div></a>
+      
     
     </nav>
   </div>
 
-            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-light "style="background-color: #282828;">
             <input type="checkbox" id="check">
   <label for="check" id="icone"><img src="icone.png"></label>
   <div class="barra">

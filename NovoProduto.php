@@ -2,20 +2,20 @@
 require_once ("cabecalho.php");
 require_once ("conexao-banco.php");
 
-$usu=$_POST["pro"];
+
 $nome  = $_POST["nome"];
-$tipo = $_POST["tipo"];
 $preco = $_POST["preco"];
 $qtde = $_POST["qtde"];
+$produtor = $_SESSION['nome'];
 
 
 
 
 
-$sql     = "insert into Produtos( nome,tipo,preco,qtde,total,produtor) values(?,?,?,?,?,?)";
+$sql     = "insert into produtos_alpha( nome,Preco_producao,quantidade,total_gasto,produtor) values(?,?,?,?,?)";
 $sqlprep = $conexao->prepare($sql);
 $total =$qtde*$preco;
-$sqlprep->bind_param("ssdiis" ,$nome,$tipo,$preco,$qtde,$total,$usu);
+$sqlprep->bind_param("sdids" ,$nome,$preco,$qtde,$total,$produtor);
 if ($sqlprep->execute()) {
     header("location: produtos.php");
 } else {

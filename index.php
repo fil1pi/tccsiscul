@@ -28,7 +28,7 @@ require_once('cabecalho.php');
 <link rel   = "stylesheet" href = "css/index.css">
 <div  id    = "fundo">
 <!-- Image and text -->
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-dark"style="background-color: #282828;">
   <a class="navbar-brand" href="#">
     <img src="ricardo.png" width="30" height="30" class="d-inline-block align-top" alt="">
     Siscul
