@@ -10,6 +10,7 @@
         header("location: produtos.php");
     }else{
         echo "Dados não podem ser removidos";
+
         
 
     }

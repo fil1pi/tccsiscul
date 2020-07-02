@@ -34,6 +34,7 @@ if(isset($_POST['id'])){
       <hr class = "featurette-divider">
       <a href="formpubli.php"><div class="link">Publicar</div></a>
       <hr class = "featurette-divider">
+
       
       
       

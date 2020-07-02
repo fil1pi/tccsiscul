@@ -27,6 +27,7 @@ while ($umvalor != null) {
   <input type="checkbox" id="check">
   <label for="check" id="icone"><img src="icone.png"></label>
   <div class="barra">
+    
     <nav>
       <a href="siteusu.php"><div class="link">Dashboard</div></a>
       <hr class = "featurette-divider">
@@ -37,7 +38,7 @@ while ($umvalor != null) {
       <div class="container">
       <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
      </div>
-     
+
      
     </nav>
   </div>

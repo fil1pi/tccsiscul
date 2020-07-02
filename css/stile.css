@@ -59,6 +59,7 @@ transform: translateX(300px);
 }
 container{
     z-index: 2;
+    
    
 }
 .card{
@@ -69,5 +70,5 @@ container{
 
 h1 ,h3,p{
     color:honeydew ;
-    
+
 }

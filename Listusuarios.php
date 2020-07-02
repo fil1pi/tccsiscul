@@ -32,13 +32,14 @@ while ($umvalor != null) {
   <label for="check" id="icone"><img src="icone.png"></label>
   <div class="barra">
     <nav>
+      
       <a href="siteadm.php"><div class="link">Dashboard</div></a>
       <hr class = "featurette-divider">
       <a href="Listusuarios.php"><div class="link">usuarios</div></a>
       <hr class = "featurette-divider">
       <a href="formpubli.php"><div class="link">Publicar</div></a>
       <hr class = "featurette-divider">
-      
+
       <div class="container">
       <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
      </div>

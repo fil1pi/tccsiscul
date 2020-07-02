@@ -62,8 +62,9 @@ foreach ($todososvalores as $registro):
       <hr class = "featurette-divider">
       <div class="container">
       <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
+      
      </div>
-     
+
     </nav>
   </div>
               <div class="nav">

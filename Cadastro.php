@@ -15,8 +15,9 @@ require_once('cabecalho.php');
         <label for    = "nome"> </label>
         <input type   = "text" class           = " rounded-pill form-control" id = "nome"name = "nome" placeholder = "nome de usuario">
 
+        
             </div>
-            
+
             <div   class = "form-group">
             <label for   = "preco"></label>
             <input type  = "text" class = " rounded-pill form-control" id = "email" name = "email" placeholder = "email valido">

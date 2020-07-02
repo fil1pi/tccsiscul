@@ -38,11 +38,12 @@ while ($umvalor != null) {
       <a href="gestao.php"><div class="link">Gestão</div></a>
       <hr class = "featurette-divider">
       <div class="container">
+        
       <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
      </div>
     </nav>
   </div>
-  
+
 
             <nav class="navbar fixed-top navbar-expand-lg navbar-light "style="background-color: #282828;" >
             <input type="checkbox" id="check">

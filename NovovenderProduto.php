@@ -10,6 +10,7 @@ $pv = $_POST["pv"];
 $qtdev = $_POST["qtdev"];
 $produtor = $_SESSION['nome'];
 
+
 $sql     = " insert into produtos_omega( nome,Preco_producao,quantidade,total_gasto,Preco_Venda,quantida_Venda,total_venda,Total_Final,produtor) values(?,?,?,?,?,?,?,?,?)";
 $sqlprep = $conexao->prepare($sql);
 $total = $qtdev*$pv;
@@ -18,7 +19,7 @@ $sqlprep->bind_param("sdiddidds" ,$nome,$preco,$qtde,$tg,$pv,$qtdev,$total,$tota
 if ($sqlprep->execute()) {
     header("location: gestao.php");
 } else {
-    
+
     ?>
 
     <div class = "p-3 mb-2 bg-success text-white">Algo de errado amigão</div>

@@ -7,6 +7,7 @@ $lermais =$_POST['lermais'];
     $texto = $_POST['publi'];
     $arquivo = isset($_FILES['img']) ? $_FILES['img'] : "";
     if (isset($_FILES['img'])) {
+
         
         $nome = $arquivo['name'];
         $tamanho = $arquivo['size'];

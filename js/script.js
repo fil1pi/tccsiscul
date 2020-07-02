@@ -6,6 +6,7 @@ function relogio () {
     var segundos = data.getSeconds();
     
     if (horas < 10) {
+        
         horas = "0" + horas;
     }
     if (minutos < 10) {
