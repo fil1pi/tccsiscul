@@ -28,7 +28,7 @@ require_once('cabecalho.php');
 <link rel   = "stylesheet" href = "css/index.css">
 <div  id    = "fundo">
 <!-- Image and text -->
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-dark"style="background-color: #282828;">
   <a class="navbar-brand" href="#">
     <img src="ricardo.png" width="30" height="30" class="d-inline-block align-top" alt="">
     Siscul
@@ -51,6 +51,7 @@ require_once('cabecalho.php');
                                        alguns empregados).
                                        A colheita dos produtos serve de alimentos para eles e ainda, para o consumo de
                                        parte da população..</h2>
+
                                    </p> 
 
                                    <a class = "text-center" href = "login.php"><button type = "button" class = "btn btn-outline-primary btn-lg btn-block">Va para o site</button></a>
@@ -99,9 +100,12 @@ require_once('cabecalho.php');
                                    </div>
                                </div>
                          </div>
+
+                         
                          <br>
                          <br>
                          <hr class = "featurette-divider">
+
                          <br>
                          <br>
                           

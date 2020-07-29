@@ -1,17 +1,27 @@
 <?php
-require_once ("conexao-banco.php");
-require_once ("protege.php");
-require_once('cabecalho.php');
-$sql = " SELECT * FROM  publicacao ";
+require_once "cabecalho.php";
+require_once "conexao-banco.php";
+require_once 'protege.php';
+
+if (isset($_POST['id'])) {
+	$id = $_POST['id'];
+} else {
+	$id = 0;
+}
+
+$sql = " SELECT * FROM  Produtos_alpha where id ='$id' ";
 $resultado = mysqli_query($conexao, $sql);
 $umvalor = mysqli_fetch_assoc($resultado);
 $todososvalores = array();
 while ($umvalor != null) {
 	array_push($todososvalores, $umvalor);
-    $umvalor = mysqli_fetch_assoc($resultado);
-
-   
+	$umvalor = mysqli_fetch_assoc($resultado);
 }
+
+
+foreach ($todososvalores as $registro):
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -22,12 +32,12 @@ while ($umvalor != null) {
  
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="css/stile.css">
+ 
   <body>
 
   <input type="checkbox" id="check">
   <label for="check" id="icone"><img src="icone.png"></label>
   <div class="barra">
-    
     <nav>
       <a href="siteusu.php"><div class="link">Dashboard</div></a>
       <hr class = "featurette-divider">
@@ -35,15 +45,11 @@ while ($umvalor != null) {
       <hr class = "featurette-divider">
       <a href="gestao.php"><div class="link">Gestão</div></a>
       <hr class = "featurette-divider">
-      <div class="container">
-      <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
-     </div>
-
-     
+      
     </nav>
   </div>
 
-            <nav class="navbar fixed-top navbar-expand-lg navbar-light " style="background-color: #282828;">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-light "style="background-color: #282828;" >
             <input type="checkbox" id="check">
   <label for="check" id="icone"><img src="icone.png"></label>
   <div class="barra">
@@ -54,6 +60,11 @@ while ($umvalor != null) {
       <hr class = "featurette-divider">
       <a href=""><div class="link">Gestão</div></a>
       <hr class = "featurette-divider">
+      <div class="container">
+      <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
+      
+     </div>
+
     </nav>
   </div>
               <div class="nav">
@@ -72,7 +83,7 @@ while ($umvalor != null) {
                 <?php
     
     if (isset($_SESSION["nome"])) : ?>
-    <div class="dropdown">
+        <div class="dropdown">
   <button class="btn btn-light  dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   <img src="https://cdn.pixabay.com/photo/2017/02/25/22/04/user-icon-2098873_960_720.png" alt="" style="width: 25px; height: 25px;">
   <?= $_SESSION["nome"]; ?>
@@ -82,7 +93,6 @@ while ($umvalor != null) {
    
   </div>
 </div>
-        
 
     <?php else : ?>
         <a href="login.php" style="color: inherit; text-decoration: none">
@@ -103,49 +113,83 @@ while ($umvalor != null) {
               
             </div>
           </nav>
-          <?php 
-          foreach ($todososvalores as $umRegistro) :
-            $titulo=$umRegistro['titulo'];
-            $texto=$umRegistro['conteudo'];
-                        $imagem = $umRegistro['img']; 
-                        $link = $umRegistro['lermais'];?>
-                        <div class="container">
+          <br>
+
+    <div class="container">
+        <div class="alinhar">
+      <div class="row">
+        <div class="col-md-6">
           <br>
           <br>
-          <br>
-        <div class="row">
-        <div class="col-md-8">
-             <div class="card">
-       
+          <div class="card">
+            <div class="card-header">
+              Novo Produto
+            </div>
+            <div class="card-body">
+              <form action="NovovenderProduto.php" method="post">
+             
+                <div class="form-group">
+                  <label for="nome">Nome</label>
+                  <input type="text" class="form-control" id="nome"name="nome"
+                  value="<?=$registro['nome']?>">
+                </div>
+                
+                <div class="form-group">
+                  <label for="nota2">Preço de produção</label>
+                  <input type="text" class="form-control" id="senha" name="preco"
+                  value="<?=$registro['Preco_producao']?>">
+                </div>
+                <div class="form-group">
+                  <label for="nota2">Quantidade </label>
+                  <input type="number" class="form-control" id="senha" name="qtde"
+                  value="<?=$registro['quantidade']?>">
+                </div>
+                <div class="form-group">
+                  <label for="nota2">Total gasto</label>
+                  <input type="text" class="form-control" id="senha" name="tg"
+                  value="<?=$registro['Total_gasto']?>">
+                </div>
+                <div class="form-group">
+                  <label for="nota2">Preço venda</label>
+                  <input type="text" class="form-control" id="senha" name="pv">
+                </div>
+                <div class="form-group">
+                  <label for="nota2">quantidade venda</label>
+                  <input type="number" class="form-control" id="senha" name="qtdev">
+                </div>
               
-                                    
-              <?php print "<img class='figure-img img-fluid rounded border border-dark' src='uploads/$imagem' style='height: 400px; width: 800px'>" ?>
-              <h1><?php echo  " $titulo"; ?></h1>                    
-              <h3 class="text-justify"><?php echo  " $texto"; ?></h3>
-                                            <p>
-                                                    <a   href="<?= $umRegistro['lermais'];?>"><button class="btn btn-outline-primary btn-lg btn-block">Ler mais </button>
-                                                     
-                                                   
-                                                    </a>   
-                                                    </p>
-                                                    </div>
+                <button type="submit" class="ntn btn-success">Guardar</button>
+              </form>
+            </div>
+          </div>
         </div>
-       
+        <?php endforeach?>
+        <div class="col-md-6">
+            <br>
+            <br>
+
+          
         
+            </div>
+          </table>
+        </div>
+        <div class="col-md-6">
+          <br>
+          <br>
+          
 
-                        <?php endforeach?>
-                        <div class="col-md-4 ">
-                       
-                        <div class="col-md-4">
-                          
-                        </div>
-
-                        </div>
-                        </div>
+         
+        </div>
+        <div class="col-md-6">
  
+<br>
+<br>
+          
 
-</body>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</html>
+          </div>
+        </div>
+        </div>
+      
+      <?php require_once 'rodape.php'?>
+    </div>
+  </div>

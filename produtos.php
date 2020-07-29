@@ -1,8 +1,11 @@
 <?php
 require_once "cabecalho.php";
 require_once "conexao-banco.php";
-$vend=$_SESSION["nome"];
-$sql = " SELECT * FROM  produtos where produtor like '$vend'";
+require_once 'protege.php';
+
+$usu= $_SESSION["nome"] ;
+
+$sql = " SELECT * FROM  Produtos_alpha WHERE produtor = '$usu' ";
 $resultado = mysqli_query($conexao, $sql);
 $umvalor = mysqli_fetch_assoc($resultado);
 $todososvalores = array();
@@ -10,7 +13,7 @@ while ($umvalor != null) {
 	array_push($todososvalores, $umvalor);
 	$umvalor = mysqli_fetch_assoc($resultado);
 }
-require_once 'protege.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -29,20 +32,30 @@ require_once 'protege.php';
   <div class="barra">
     <nav>
       <a href="siteusu.php"><div class="link">Dashboard</div></a>
+      <hr class = "featurette-divider">
       <a href="produtos.php"><div class="link">Produtos</div></a>
+      <hr class = "featurette-divider">
       <a href="gestao.php"><div class="link">Gestão</div></a>
-      <a href="mercadolivreagro.php"><div class="link">mercado</div></a>
+      <hr class = "featurette-divider">
+      <div class="container">
+        
+      <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
+     </div>
     </nav>
   </div>
 
-            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" >
+
+            <nav class="navbar fixed-top navbar-expand-lg navbar-light "style="background-color: #282828;" >
             <input type="checkbox" id="check">
   <label for="check" id="icone"><img src="icone.png"></label>
   <div class="barra">
     <nav>
       <a href=""><div class="link">Dashboard</div></a>
+      <hr class = "featurette-divider">
       <a href=""><div class="link">Produtos</div></a>
+      <hr class = "featurette-divider">
       <a href=""><div class="link">Gestão</div></a>
+      <hr class = "featurette-divider">
     </nav>
   </div>
               <div class="nav">
@@ -105,19 +118,12 @@ require_once 'protege.php';
             </div>
             <div class="card-body">
               <form action="NovoProduto.php" method="post">
-              <div class="form-group">
-                  <label for="nome">produtor</label>
-                  <input type="text" class="form-control" id="nome"name="pro"
-                  value="<?=$_SESSION["nome"];?>">
-                </div>
+             
                 <div class="form-group">
                   <label for="nome">Nome</label>
                   <input type="text" class="form-control" id="nome"name="nome">
                 </div>
-                <div class="form-group">
-                  <label for="nota1">tipo</label>
-                  <input type="text" class="form-control" id="email" name="tipo">
-                </div>
+                
                 <div class="form-group">
                   <label for="nota2">Preço</label>
                   <input type="text" class="form-control" id="senha" name="preco">
@@ -126,7 +132,7 @@ require_once 'protege.php';
                   <label for="nota2">Quantidade</label>
                   <input type="number" class="form-control" id="senha" name="qtde">
                 </div>
-                <button type="submit" class="ntn btn-primary">Salvar</button>
+                <button type="submit" class="ntn btn-success">Guardar</button>
               </form>
             </div>
           </div>
@@ -141,11 +147,11 @@ require_once 'protege.php';
               <thead class="">
                 <tr>
                   <th>Nome</th>
-                  <th>Tipo</th>
+        
                   <th>Preço</th>
                   <th>Quantidade</th>
                   <th>Total gasto</th>
-                  <th>Opção</th>
+                  
                   <?php
 foreach ($todososvalores as $registro):
 ?>
@@ -154,20 +160,21 @@ foreach ($todososvalores as $registro):
               <tbody>
                 <tr>
                   <th><?=$registro["nome"];?></th>
-                  <th><?=$registro["tipo"];?></th>
-                  <th><?=$registro["preco"];?></th>
-                  <th><?=$registro["qtde"];?></th>
-                  <th><?=$registro["total"];?></th>
+                  <th><?=$registro["Preco_producao"];?></th>
+                  
+                  <th><?=$registro["quantidade"];?></th>
+                  <th><?=$registro["Total_gasto"];?></th>
                   <th>
                     <form action="Removerpro.php" method="post">
-                      <input type="hidden" name="id" value="<?=$registro["idproduto"];?>">
+                      <input type="hidden" name="id" value="<?=$registro["id"];?>">
                       <button type="submit" class="btn btn-large btn-block btn-danger">Remover</button>
                     </form>
-                  
-                    <form action="anuncio.php" method="post">
-                      <input type="hidden" name="idp" value="<?=$registro["idproduto"]; ?>">
-                      <button type="submit" class="btn btn-large btn-block btn-success">Anunciar</button>
+                    <br>
+                    <form action="Venderpro.php" method="post">
+                      <input type="hidden" name="id" value="<?=$registro["id"];?>">
+                      <button type="submit" class="btn btn-large btn-block btn-warning">Vender</button>
                     </form>
+                    
                   </th>
                 </tr>
               </tbody>

@@ -2,6 +2,26 @@
 require_once ("conexao-banco.php");
 require_once('cabecalho.php');
 require_once ("protege.php");
+
+
+    $pag = (isset($_GET['pagina']))?$_GET['pagina'] : 1;
+    
+$busca = "SELECT *FROM  publicacao";
+$todos = mysqli_query($conexao, "$busca");
+
+$registros = "3";
+
+$tr = mysqli_num_rows($todos);
+$tp = ceil($tr/$registros);
+
+$inicio = ($registros*$pag)-$registros;
+$limite = mysqli_query($conexao, "$busca LIMIT $inicio, $registros");
+
+$anterior = $pag -1;
+$proximo = $pag +1;
+
+   
+
 $sql = " SELECT * FROM  publicacao ";
 $resultado = mysqli_query($conexao, $sql);
 $umvalor = mysqli_fetch_assoc($resultado);
@@ -12,7 +32,6 @@ while ($umvalor != null) {
 
    
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -23,6 +42,7 @@ while ($umvalor != null) {
  
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="css/stile.css">
+  </head>
   <body>
 
   <input type="checkbox" id="check">
@@ -30,27 +50,38 @@ while ($umvalor != null) {
   <div class="barra">
     <nav>
       <a href="siteadm.php"><div class="link">Dashboard</div></a>
+      <hr class = "featurette-divider">
       <a href="Listusuarios.php"><div class="link">Usuarios</div></a>
+      <hr class = "featurette-divider">
       <a href="formpubli.php"><div class="link">Publicar</div></a>
-      <a href="mercadolivre.php"><div class="link">mercado</div></a>
+      <hr class = "featurette-divider">
+     
       
     </nav>
   </div>
+  
 
-            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-light " style="background-color: #282828;">
             <input type="checkbox" id="check">
   <label for="check" id="icone"><img src="icone.png"></label>
   <div class="barra">
     <nav>
       <a href=""><div class="link">Dashboard</div></a>
+      <hr class = "featurette-divider">
       <a href=""><div class="link">Usuarios</div></a>
+      <hr class = "featurette-divider">
       <a href=""><div class="link">Publicar</div></a>
+      <hr class = "featurette-divider">
+
+      <div class="container">
+      <p>Site desenvolvido por Felipe Schmitz & Vitoria santana !</p>
+     </div>
       
     </nav>
   </div>
               <div class="nav">
                 <img src="ricardo.png" width="40" height="40" >
-            <a class="navbar-brand" href="#">Silcul</a>
+<a class="navbar-brand" href="#"  >Silcul</a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -94,20 +125,20 @@ while ($umvalor != null) {
               
             </div>
           </nav>
+         
           <?php 
           foreach ($todososvalores as $umRegistro) :
             $titulo=$umRegistro['titulo'];
             $texto=$umRegistro['conteudo'];
                         $imagem = $umRegistro['img']; 
-                        $link = $umRegistro['lermais'];
-                        ?>
-
+                        $link = $umRegistro['lermais'];?>
         <div class="container">
           <br>
           <br>
           <br>
         <div class="row">
         <div class="col-md-8">
+          <table>
         <div class="card">
         <form action="Removerpubli.php" method="post">
                       <input type="hidden" name="id" value="<?= $umRegistro['idpubli'];?>">
@@ -126,10 +157,47 @@ while ($umvalor != null) {
                                                      </a>    
                                                     </p>
                                                     </div>
-        </div>
-        </div>
+                
         </div>
         <?php endforeach?>
+        </div>
+        
+        </div>
+       
+        <ul class="pagination">
+                <?php
+                if($pag >1){
+                ?>
+                <li class="page-item">
+                <a class="page-link" href="?pagina=<?=$anterior;?>" aria-label="Anterior">
+                        <span aria-hidden="true">Anterior</span>
+                    </a>
+                </li>
+                <?php }?>
+                
+                <?php
+                for($i=1; $i<=$tp; $i++){
+                    if($pag == $i ){
+                        echo "<li class='page-item active'><a class='page-link' href='?pagina=$i'>$i</a></li>";
+                    }else{
+                        echo "<li class='page-item'><a class='page-link' href='?pagina=$i'>$i</a></li>";
+                    }
+                }
+                ?>
+                
+                
+                
+                <?php 
+                if($pag < $tp){
+                ?>
+                <li class="page-item">
+                    <a class="page-link" href="?pagina=<?=$proximo;?>" aria-label="Próximo">
+                        <span aria-hidden="true">Próximo</span>
+                        
+                    </a>
+                </li>
+                <?php }?>
+            </ul>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

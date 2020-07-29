@@ -17,10 +17,12 @@ require_once ("conexao-banco.php");
    $sqlprep->bind_param("ss",$email,$senha);
    $sqlprep->execute();
    $resultadosql = $sqlprep->get_result();
+   
    $vetorUMRegistro = mysqli_fetch_assoc($resultadosql);
 
 
 if (isset($vetorUMRegistro)) {
+
     session_start();
 $_SESSION["id"] = $vetorUMRegistro["id"];
 $_SESSION["email"] = $vetorUMRegistro["email"];
